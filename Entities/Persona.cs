@@ -9,9 +9,12 @@ namespace lab2.Entities
         public string Nombres {get; set;}
         public string Email {get; set;}
 
-        public void TomarAsistencia()
+        public Persona (string Uuid, string Apellidos, string Nombres, string Email)
         {
-            Console.WriteLine($"Astiencia con carné");
+            this.Uuid = uuid;
+            this.Apellidos = apellidos;
+            this.Nombres = nombres;
+            this.Email = email;
         }
 
 
