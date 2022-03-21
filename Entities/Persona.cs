@@ -1,4 +1,3 @@
-using lab2.Interfaces;
 
 namespace lab2.Entities
 {
@@ -8,15 +7,18 @@ namespace lab2.Entities
         public string Apellidos {get; set;}
         public string Nombres {get; set;}
         public string Email {get; set;}
+        public abstract void TomarAsistencia();
+        public Persona ()
+        {
 
-        public Persona (string Uuid, string Apellidos, string Nombres, string Email)
+        }
+
+        public Persona (string uuid, string apellidos, string nombres, string email)
         {
             this.Uuid = uuid;
             this.Apellidos = apellidos;
             this.Nombres = nombres;
             this.Email = email;
         }
-
-
     }
 }

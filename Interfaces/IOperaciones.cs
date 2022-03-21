@@ -4,7 +4,8 @@ namespace lab2.Interfaces
 {
     public interface IOperaciones
     {
-        public void TomarAsitencia();
+        public void ListarMisDatos(string identificador);
+        public bool EliminarAsignatura(string asignatura);
        
     }
 }

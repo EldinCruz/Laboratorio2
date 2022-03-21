@@ -1,50 +1,59 @@
 ﻿using lab2.Entities;
-
-public class Sistema
+using lab2.Interfaces;
+public class Program
 {
+private static List<Persona> ListaGeneral = new List<Persona>();
 public static void Main(string[] args){
 
-    List<Persona> listaPersonas = new List<Persona>();
-    Persona alumno1 = new Alumno();
-    ((Alumno)alumno1).Carne = "1012022";
-    alumno1.Apellidos = "Lopez Ramirez";
-    alumno1.Nombres = "Carlos Augusto";
-    alumno1.Email = "carloslora@gmail.com";
-    ((Alumno)alumno1).Creditos = 5;
-    alumno1.TomarAsistencia();
-
-    Persona profesor1 = new Profesor();
-    ((Profesor)profesor1).Cui = "4018300490101";
-    profesor1.Apellidos = "Cortez Gonzalez";
-    profesor1.Nombres = "Juan Alberto";
-    profesor1.Email = "cortezjuan@gmail.com";
-    ((Profesor)profesor1).Cargo = "Maestro de Programacion";
-    profesor1.TomarAsistencia();
-
-    listaPersonas.Add(alumno1);
-    listaPersonas.Add(profesor1);
-    ImprimirInformacionGeneral(listaPersonas);
-
-    static void ImprimirInformacionGeneral(List<Persona> personas)
-    {
-        Console.WriteLine($"Informacion General");
-        foreach (Persona elemento in personas)
-        {
-            if (elemento is Alumno)
-            {
-                Console.WriteLine($"Datos: Carne {((Alumno)elemento).Carne}  / Apellidos: {elemento.Apellidos}  / Nombres: {elemento.Nombres}  / Creditos: {((Alumno)elemento).Creditos}");
-                Console.WriteLine("Registro de Asistencia:");
-                ((Alumno)elemento).TomarAsistencia();
-            }
-            else if (elemento is Profesor)
-            {
-                Console.WriteLine($"Datos: Cui  {((Profesor)elemento).Cui} / Apellidos  {elemento.Apellidos} / Nombres {elemento.Nombres} / Cargo {((Profesor)elemento).Cargo}");
-                Console.WriteLine("Registro de Asistencia");
-                ((Profesor)elemento).TomarAsistencia();
-            }
-        }
-    }
+    Alumno CarlosGonzales = new Alumno ("123", "Gonzales Pires", "Carlos Rodrigo", "cgonzales@gmail.com", "2022001",30);
+    Profesor EdwinTumax = new Profesor ("505", "Tumax Colindres", "Edwin Ramiro", "etumax@gmail.com", "2344210490101", "Instructor de Informatica");
     
+    OperarRegistro(CarlosGonzales);
+    OperarRegistro(EdwinTumax);
+
+    RegistrarAsistencia(CarlosGonzales);
+    RegistrarAsistencia(EdwinTumax);
+
+    VerMisDatos(CarlosGonzales);
+    VerMisDatos(EdwinTumax);
+
+    QuitarAsignatura(CarlosGonzales, "Matematica");
+    QuitarAsignatura(EdwinTumax, "Informatica");
+
+
+        
 }
 
+    public static void VerMisDatos(Persona elemento)
+    {
+        if (elemento is Alumno)
+        {
+            Alumno auxiliar = (Alumno) elemento;
+            auxiliar.ListarMisDatos(auxiliar.Carne);
+
+        }else if (elemento is Profesor)
+        {
+            Profesor auxiliar = (Profesor)elemento;
+            auxiliar.ListarMisDatos(auxiliar.Cui);
+        }
+    }
+    public static void RegistrarAsistencia(Persona elemento)
+    {
+        foreach(Persona registro in ListaGeneral)
+        {
+            if(registro.Uuid == elemento.Uuid)
+             {
+                 elemento.TomarAsistencia();
+             }
+        }
+        
+    }
+    public static void QuitarAsignatura(Persona elemento, string asignatura)
+    {
+        ((IOperaciones)elemento).EliminarAsignatura(asignatura);
+    }
+    public static void OperarRegistro(Persona elemento)
+    {
+        ListaGeneral.Add(elemento);
+    }
 }
